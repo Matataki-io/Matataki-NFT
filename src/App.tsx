@@ -14,7 +14,8 @@ import theme from './theme'
 import Farms from './views/Farms'
 import Home from './views/Home'
 import Stake from './views/Stake'
-import Header from "./components/Header";
+import Header from "./components/Header"
+import Assets from './views/Assets/index'
 
 const App: React.FC = () => {
   const [mobileMenu, setMobileMenu] = useState(false)
@@ -39,6 +40,9 @@ const App: React.FC = () => {
           </Route>
           <Route path="/farms">
             <Farms />
+          </Route>
+          <Route path="/assets/:id">
+            <Assets />
           </Route>
           <Route path="/staking">
             <Stake />
