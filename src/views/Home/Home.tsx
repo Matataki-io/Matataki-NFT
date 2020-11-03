@@ -8,8 +8,15 @@ import PageHeader from '../../components/PageHeader'
 import Spacer from '../../components/Spacer'
 import Balances from './components/Balances'
 import Banner from '../../components/Banner'
+import { Pagination, Checkbox } from 'antd'
+
 
 const Home: React.FC = () => {
+
+  function onChange(e: any) {
+    console.log(`checked = ${e.target.checked}`);
+  }
+
   return (
     <Page>
       <Banner></Banner>
@@ -38,7 +45,10 @@ const Home: React.FC = () => {
       <StyledContent>
         <StyledContentHead>
           <div>Didital goods auction</div>
-          <div>view all</div>
+          <div>
+            <Checkbox onChange={onChange}>On Sale</Checkbox>
+            <Checkbox onChange={onChange}>My NFT</Checkbox>
+          </div>
         </StyledContentHead>
         <StyledContentList>
           {
@@ -56,6 +66,9 @@ const Home: React.FC = () => {
             ))
           }
         </StyledContentList>
+        <StyledContentPagination>
+          <Pagination defaultCurrent={1} total={50} />
+        </StyledContentPagination>
       </StyledContent>
     </Page>
   )
@@ -93,6 +106,13 @@ const StyledContentList = styled.div`
     grid-row-gap: 24px;
     margin-top: 24px;
   `
+const StyledContentPagination = styled.div`
+display: felx;
+align-items: cennter;
+justify-content: center;
+margin-top: 40px;
+
+`
 const StyledList = styled.div`
   width: 256px;
   height: 360px;
