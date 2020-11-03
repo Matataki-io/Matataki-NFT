@@ -14,6 +14,7 @@ import theme from './theme'
 import Farms from './views/Farms'
 import Home from './views/Home'
 import Stake from './views/Stake'
+import Header from "./components/Header";
 
 const App: React.FC = () => {
   const [mobileMenu, setMobileMenu] = useState(false)
@@ -29,8 +30,9 @@ const App: React.FC = () => {
   return (
     <Providers>
       <Router>
-        <TopBar onPresentMobileMenu={handlePresentMobileMenu} />
-        <MobileMenu onDismiss={handleDismissMobileMenu} visible={mobileMenu} />
+        <Header></Header>
+        {/* <TopBar onPresentMobileMenu={handlePresentMobileMenu} /> */}
+        {/* <MobileMenu onDismiss={handleDismissMobileMenu} visible={mobileMenu} /> */}
         <Switch>
           <Route path="/" exact>
             <Home />
@@ -83,7 +85,7 @@ const Disclaimer: React.FC = () => {
     if (!seenDisclaimer) {
       onPresentDisclaimerModal()
     }
-  }, [])
+  }, [onPresentDisclaimerModal])
 
   return <div />
 }
