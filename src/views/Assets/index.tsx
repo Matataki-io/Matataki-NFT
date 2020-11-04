@@ -3,14 +3,15 @@ import styled from 'styled-components'
 import Page from '../../components/Page'
 import Banner from '../../components/Banner'
 import { Tag } from 'antd'
-
+import { useHistory } from 'react-router-dom'
 
 const Assets: React.FC = () => {
+  let history = useHistory()
 
   return (
     <Page>
       <StyledHead>
-        <StyledHeadBack>Back To NFTs</StyledHeadBack>
+        <StyledHeadBack onClick={ () => history.goBack() }>Back To NFTs</StyledHeadBack>
       </StyledHead>
       <StyledContent>
         <StyledContentInfo>
@@ -158,6 +159,7 @@ const StyledHeadBack = styled.span`
   font-weight: 500;
   color: #193CB1;
   line-height: 22px;
+  cursor: pointer;
 `
 const StyledContent = styled.div`
   max-width: 1400px;
