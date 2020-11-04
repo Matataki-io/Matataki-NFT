@@ -3,7 +3,9 @@ import styled from 'styled-components'
 import { Form, Input, Modal, Button } from 'antd';
 import logo from "../../assets/img/logo.png";
 import logoText from "../../assets/img/logo-text.png";
-import { AnyARecord } from 'dns';
+import { AnyARecord } from 'dns'
+
+import AccountButton from '../TopBar/components/AccountButton'
 
 const Header: React.FC = () => {
 
@@ -74,8 +76,8 @@ const Header: React.FC = () => {
           <input type="text"></input>
           <Button type="primary" onClick={() => showModal()}>
             Create NFT
-        </Button>
-          <span>user</span>
+          </Button>
+          <AccountButton />
         </StyledHeaderUser>
       </StyledHeaderContainer>
       <Modal
@@ -134,7 +136,8 @@ const StyledHeaderLogo = styled.div`
   }
 `
 const StyledHeaderUser = styled.div`
-  
+  display: flex;
+  align-items: center;
 `
 
 

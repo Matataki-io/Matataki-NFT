@@ -114,7 +114,7 @@ margin-top: 40px;
 
 `
 const StyledList = styled.div`
-  width: 256px;
+  max-width: 256px;
   height: 360px;
   background: #FFFFFF;
   box-shadow: 0px 0px 16px 0px rgba(0, 0, 0, 0.06);
@@ -122,6 +122,8 @@ const StyledList = styled.div`
   overflow: hidden;
   cursor: pointer;
   transition: all .2s;
+  display: flex;
+  flex-direction: column;
   &:hover {
     box-shadow: 0px 0px 16px 0px rgba(0, 0, 0, 0.16);
   }
@@ -146,7 +148,8 @@ const StyledListTitle = styled.p`
   margin: 16px 16px 0;
 `
 const StyledListInfo = styled.div`
-  margin: 24px 16px 0;
+  margin: 0 16px 0;
+  flex: 1;
   display: flex;
   align-items: center;
   justify-content: space-between;

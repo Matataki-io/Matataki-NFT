@@ -17,6 +17,8 @@ import Stake from './views/Stake'
 import Header from "./components/Header"
 import Assets from './views/Assets/index'
 
+import { Network } from "./config/index";
+
 const App: React.FC = () => {
   const [mobileMenu, setMobileMenu] = useState(false)
 
@@ -58,10 +60,10 @@ const Providers: React.FC = ({ children }) => {
   return (
     <ThemeProvider theme={theme}>
       <UseWalletProvider
-        chainId={1}
-        connectors={{
-          walletconnect: { rpcUrl: 'https://mainnet.eth.aragon.network/' },
-        }}
+        chainId={Network}
+      // connectors={{
+      //   walletconnect: { rpcUrl: 'https://mainnet.eth.aragon.network/' },
+      // }}
       >
         <SushiProvider>
           <TransactionProvider>
