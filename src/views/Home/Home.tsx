@@ -9,6 +9,7 @@ import Spacer from '../../components/Spacer'
 import Balances from './components/Balances'
 import Banner from '../../components/Banner'
 import { Pagination, Checkbox } from 'antd'
+import { Link } from 'react-router-dom'
 
 
 const Home: React.FC = () => {
@@ -53,7 +54,7 @@ const Home: React.FC = () => {
         <StyledContentList>
           {
             [1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 1, 1, 1].map(i => (
-              <StyledList>
+              <StyledListLink to={`/assets/0x86ae6c95d7e266d6fa1b04b73f0b5a0f771b3f7b`}>
                 <StyledListCover>
                   <img src="https://image.gameapps.hk/images/202002/26/5e998cac78633112.jpg" alt="cover" aria-label="cover" />
                 </StyledListCover>
@@ -62,7 +63,7 @@ const Home: React.FC = () => {
                   <span>3days</span>
                   <span>1.3434DPC</span>
                 </StyledListInfo>
-              </StyledList>
+              </StyledListLink>
             ))
           }
         </StyledContentList>
@@ -107,13 +108,13 @@ const StyledContentList = styled.div`
     margin-top: 24px;
   `
 const StyledContentPagination = styled.div`
-display: felx;
-align-items: cennter;
-justify-content: center;
-margin-top: 40px;
+  display: felx;
+  align-items: cennter;
+  justify-content: center;
+  margin-top: 40px;
 
 `
-const StyledList = styled.div`
+const StyledListLink = styled(Link)`
   max-width: 256px;
   height: 360px;
   background: #FFFFFF;

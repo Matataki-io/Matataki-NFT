@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { Form, Input, Modal, Button } from 'antd';
 import logo from "../../assets/img/logo.png";
 import logoText from "../../assets/img/logo-text.png";
-import { AnyARecord } from 'dns'
+import { Link } from 'react-router-dom'
 
 import AccountButton from '../TopBar/components/AccountButton'
 
@@ -68,10 +68,10 @@ const Header: React.FC = () => {
   return (
     <StyledHeader>
       <StyledHeaderContainer>
-        <StyledHeaderLogo>
+        <StyledHeaderLogoLink to="/">
           <img className="logo" src={logo} alt="logo" aria-label="logo" />
           <img className="logo-text" src={logoText} alt="logo" aria-label="logo" />
-        </StyledHeaderLogo>
+        </StyledHeaderLogoLink>
         <StyledHeaderUser>
           <input type="text"></input>
           <Button type="primary" onClick={() => showModal()}>
@@ -124,7 +124,7 @@ const StyledHeaderContainer = styled.div`
   align-items: center;
   justify-content: space-between;
 `
-const StyledHeaderLogo = styled.div`
+const StyledHeaderLogoLink = styled(Link)`
   display: flex;
   align-items: center;
   .logo {
