@@ -1,17 +1,25 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import { Form, Input, Modal, Button } from 'antd';
+import { Form, Input, Modal, Button, message } from 'antd';
 import logo from "../../assets/img/logo.png";
 import logoText from "../../assets/img/logo-text.png";
 import { Link } from 'react-router-dom'
+import { provider } from 'web3-core'
+import { useWallet } from 'use-wallet'
 
 import AccountButton from '../TopBar/components/AccountButton'
+import { getContract, getContractFactory, getContractMatatakiNFT } from '../../utils/erc20';
+import { getTokenInfo, approve, createMiningPool, issueToken } from "../../utils/contract";
+import { StakingMiningPoolFactory, MatatakiNFT } from '../../constants/tokenAddresses'
+import { parseUnits } from 'ethers/lib/utils'
 
 const Header: React.FC = () => {
 
   const [visible, setVisible] = useState(false)
-
+  const { ethereum, account }: { account: string; ethereum: provider } = useWallet()
   const [form] = Form.useForm();
+  const [requestedSubmit, setRequestedSubmit] = useState(false)
+
 
   const layout = {
     labelCol: { span: 6 },
@@ -35,8 +43,29 @@ const Header: React.FC = () => {
     }
   };
 
-  const onFinish = (values: any) => {
+  const onFinish = async (values: any) => {
     console.log(values);
+    try {
+      setRequestedSubmit(true)
+      message.success('Start Create NFT ...')
+
+      const contract = await getContractMatatakiNFT(ethereum as provider, MatatakiNFT)
+      const txHash = await issueToken(contract, account)
+
+      if (txHash) {
+        message.success('Create NFT Success...')
+        // await reloadFarmClick()
+        // await onDismiss()
+      } else {
+        // user rejected tx or didn't go thru
+        message.success('Maybe the user rejected...')
+      }
+      console.log('txHash', txHash)
+      setRequestedSubmit(false)
+    } catch (e) {
+      console.log(e)
+      setRequestedSubmit(false)
+    }
   };
 
   const onReset = () => {
@@ -74,7 +103,7 @@ const Header: React.FC = () => {
         </StyledHeaderLogoLink>
         <StyledHeaderUser>
           <input type="text"></input>
-          <Button type="primary" onClick={() => showModal()}>
+          <Button type="primary" onClick={() => showModal()} loading={requestedSubmit}>
             Create NFT
           </Button>
           <AccountButton />

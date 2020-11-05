@@ -11,6 +11,8 @@ import ModalActions from '../ModalActions'
 import ModalContent from '../ModalContent'
 import ModalTitle from '../ModalTitle'
 import Spacer from '../Spacer'
+import store from '../../utils/store'
+import { message } from 'antd'
 
 import WalletCard from './components/WalletCard'
 
@@ -23,6 +25,14 @@ const WalletProviderModal: React.FC<ModalProps> = ({ onDismiss }) => {
     }
   }, [account, onDismiss])
 
+  const connectType = (type: any) => {
+    store.set('connect-type', type)
+    if (type === 'walletconnect') {
+      message.info(`Please select Rinkeby network node. 请选择Rinkeby网络节点。`)
+    }
+    connect(type)
+  }
+
   return (
     <Modal>
       <ModalTitle text="Select a wallet provider." />
@@ -32,7 +42,7 @@ const WalletProviderModal: React.FC<ModalProps> = ({ onDismiss }) => {
           <StyledWalletCard>
             <WalletCard
               icon={<img src={metamaskLogo} style={{ height: 32 }} />}
-              onConnect={() => connect('injected')}
+              onConnect={() => connectType('injected')}
               title="Metamask"
             />
           </StyledWalletCard>
