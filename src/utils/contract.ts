@@ -65,6 +65,17 @@ export const farmsAddress = async (contract: any, i: string) => {
     }
 }
 
+// === MatatakiNFT
+export const totalSupply = async (contract: any) => {
+    try {
+        return await contract.methods.totalSupply().call()
+    } catch (e) {
+        console.log('totalSupply error', e)
+        return ''
+    }
+}
+
+
 //=== StakingRewards
 export const rewardsToken = async (contract: any) => {
     try {
@@ -100,6 +111,7 @@ export const createMiningPool = async (contract: any, name: string, rewardsToken
         .send({ from: account })
 }
 
+// === MatatakiNFT
 export const issueToken = async (contract: any, account: string) => {
     return await contract.methods
         .issueToken()

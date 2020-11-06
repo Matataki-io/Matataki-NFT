@@ -9,9 +9,10 @@ import { useWallet } from 'use-wallet'
 
 import AccountButton from '../TopBar/components/AccountButton'
 import { getContract, getContractFactory, getContractMatatakiNFT } from '../../utils/erc20';
-import { getTokenInfo, approve, createMiningPool, issueToken } from "../../utils/contract";
+import { getTokenInfo, approve, createMiningPool, issueToken, totalSupply } from "../../utils/contract";
 import { StakingMiningPoolFactory, MatatakiNFT } from '../../constants/tokenAddresses'
 import { parseUnits } from 'ethers/lib/utils'
+import { createNft, axiosResult } from '../../api/client';
 
 const Header: React.FC = () => {
 
@@ -51,6 +52,17 @@ const Header: React.FC = () => {
 
       const contract = await getContractMatatakiNFT(ethereum as provider, MatatakiNFT)
       const txHash = await issueToken(contract, account)
+      const totalSupplyResult = await totalSupply(contract)
+      const result = await createNft({
+        tokenId: totalSupplyResult,
+        account,
+        transactionHash: JSON.stringify(txHash.transactionHash),
+        tx: txHash,
+        logo: values.nft.logo,
+        name: values.nft.name,
+        symbol: values.nft.symbol,
+        description: values.nft.description,
+      })
 
       if (txHash) {
         message.success('Create NFT Success...')
@@ -61,7 +73,12 @@ const Header: React.FC = () => {
         message.success('Maybe the user rejected...')
       }
       console.log('txHash', txHash)
+      console.log('totalSupplyResult', totalSupplyResult)
       setRequestedSubmit(false)
+
+      if (result.code === 0) {
+        setVisible(false)
+      }
     } catch (e) {
       console.log(e)
       setRequestedSubmit(false)
@@ -126,11 +143,11 @@ const Header: React.FC = () => {
           <Form.Item name={['nft', 'symbol']} label="SYMBOL" rules={[{ required: true, message: 'Please input symbol!' }]}>
             <Input placeholder="Please input symbol" />
           </Form.Item>
-          <Form.Item name={['nft', 'decription']} label="DESCRIPTIONN" rules={[{ required: true, message: 'Please input decription!' }]}>
-            <Input.TextArea placeholder="Please input decription" />
+          <Form.Item name={['nft', 'description']} label="DESCRIPTION" rules={[{ required: true, message: 'Please input description!' }]}>
+            <Input.TextArea placeholder="Please input description" />
           </Form.Item>
           <Form.Item {...tailLayout}>
-            <Button type="primary" htmlType="submit" style={{ width: '100%' }}>
+            <Button type="primary" htmlType="submit" style={{ width: '100%' }} loading={requestedSubmit}>
               Create
             </Button>
           </Form.Item>
