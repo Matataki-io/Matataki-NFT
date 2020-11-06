@@ -1,80 +1,104 @@
-import React from 'react'
+import React, { useEffect, useState, useCallback } from 'react'
 import styled from 'styled-components'
 import Page from '../../components/Page'
 import Banner from '../../components/Banner'
 import { Tag } from 'antd'
 import { useHistory } from 'react-router-dom'
+import { getNftId, nftInterface } from '../../api/client'
+import { useParams } from "react-router-dom";
+import { isEmpty } from 'lodash';
+
+interface nftResultInterface extends nftInterface {}
 
 const Assets: React.FC = () => {
   let history = useHistory()
+  const { id }: { id: string } = useParams()
+  const [nftData, setNftData] = useState<nftResultInterface>()
+
+  useEffect(() => {
+    const getData = async () => {
+      const result = await getNftId(id)
+      console.log('result', result)
+      if (result.code === 0) {
+        setNftData(result.data)
+      }
+    }
+
+    getData()
+  }, [id])
 
   return (
     <Page>
       <StyledHead>
-        <StyledHeadBack onClick={ () => history.goBack() }>Back To NFTs</StyledHeadBack>
+        <StyledHeadBack onClick={() => history.goBack()}>Back To NFTs</StyledHeadBack>
       </StyledHead>
-      <StyledContent>
-        <StyledContentInfo>
-          <StyledContentCover>
-            <img src="https://image.gameapps.hk/images/202002/26/5e998cac78633112.jpg" alt="cover" aria-label="cover" />
-          </StyledContentCover>
-          <StyledContentCard>
-            <StyledContentCardTitle>
-              <span>icon Description</span>
-            </StyledContentCardTitle>
-            <StyledContentCardContent>
-              Developed by Shinji Mikami -- creator of the seminal Resident Evil series -- and the talented team at Tango Gameworks, The Evil Within embodies the meaning of pure survival horror. Highly-crafted environments, horrifying anxiety, and an intricate story are combined to create an immersive world that will bring you to the height of tension. With limited resources at your disposal, you’ll fight for survi…
-              <a href="#">Unfold</a>
+      {
+        isEmpty(nftData) ? (<StyledLoading>Loading...</StyledLoading>) : (
+          <StyledContent>
+            <StyledContentInfo>
+              <StyledContentCover>
+                <img src={nftData.logo} alt="cover" aria-label="cover" />
+              </StyledContentCover>
+              <StyledContentCard>
+                <StyledContentCardTitle>
+                  <span>icon Description</span>
+                </StyledContentCardTitle>
+                <StyledContentCardContent>
+                  {nftData.description}
+                  <a href="#">Unfold</a>
+                </StyledContentCardContent>
+              </StyledContentCard>
+            </StyledContentInfo>
+
+            <StyledContentPrice>
+              <StyledPriceHead>
+                <Tag color="cyan">Now On Sale</Tag>
+                <span>lock icon 3d 00:00:00</span>
+                <StyledPriceHeadShare>share icon</StyledPriceHeadShare>
+              </StyledPriceHead>
+              <StyledPriceTitle>{nftData.name}</StyledPriceTitle>
+              <StyledPriceUser>
+                <StyledPriceUserBy>Created by</StyledPriceUserBy>
+                <StyledPriceUserByAuthor>avatar {nftData.account}</StyledPriceUserByAuthor>
+              </StyledPriceUser>
+
+              <StyledContentCard>
+                <StyledContentCardTitle>
+                  <span>icon Current Price</span>
+                </StyledContentCardTitle>
+                <StyledContentCardContent>
+                  <div>
+                    <div>
+                      <div>New Offer</div>
+                      <div>7.7545<span>KJM($1.312)</span></div>
+                    </div>
+                    <div>
+                      <div>New Offer</div>
+                      <div>7.7545<span>KJM($1.312)</span></div>
+                    </div>
+                  </div>
+                  <div>
+                    <input type="text" value="Input the price you want to offer" />
+                    <button>participate in the auction</button>
+                  </div>
+                </StyledContentCardContent>
+              </StyledContentCard>
+
+
+              <StyledContentCard>
+                <StyledContentCardTitle>
+                  <span>icon Price History</span>
+                </StyledContentCardTitle>
+                <StyledContentCardContent>
+                  charts
             </StyledContentCardContent>
-          </StyledContentCard>
-        </StyledContentInfo>
+              </StyledContentCard>
 
-        <StyledContentPrice>
-          <StyledPriceHead>
-            <Tag color="cyan">Now On Sale</Tag>
-            <span>lock icon 3d 00:00:00</span>
-            <StyledPriceHeadShare>share icon</StyledPriceHeadShare>
-          </StyledPriceHead>
-          <StyledPriceTitle>Evil Within - The Game Cover</StyledPriceTitle>
-          <StyledPriceUser>
-            <StyledPriceUserBy>Created by</StyledPriceUserBy>
-            <StyledPriceUserByAuthor>avatar HideoKojima</StyledPriceUserByAuthor>
-          </StyledPriceUser>
+            </StyledContentPrice>
+          </StyledContent>
+        )
+      }
 
-          <StyledContentCard>
-            <StyledContentCardTitle>
-              <span>icon Current Price</span>
-            </StyledContentCardTitle>
-            <StyledContentCardContent>
-              <div>
-                <div>
-                  <div>New Offer</div>
-                  <div>7.7545<span>KJM($1.312)</span></div>
-                </div>
-                <div>
-                  <div>New Offer</div>
-                  <div>7.7545<span>KJM($1.312)</span></div>
-                </div>
-              </div>
-              <div>
-                <input type="text" value="Input the price you want to offer" />
-                <button>participate in the auction</button>
-              </div>
-            </StyledContentCardContent>
-          </StyledContentCard>
-
-
-          <StyledContentCard>
-            <StyledContentCardTitle>
-              <span>icon Price History</span>
-            </StyledContentCardTitle>
-            <StyledContentCardContent>
-              charts
-            </StyledContentCardContent>
-          </StyledContentCard>
-
-        </StyledContentPrice>
-      </StyledContent>
     </Page>
   )
 }
@@ -242,5 +266,13 @@ const StyledPriceUserByAuthor = styled.a`
   color: #193CB1;
   line-height: 22px;
 `
+const StyledLoading = styled.div`
+  margin: 0 auto;
+  box-sizing: border-box;
+  max-width: 100px;
+  text-align: center;
+`
+
+
 
 export default Assets

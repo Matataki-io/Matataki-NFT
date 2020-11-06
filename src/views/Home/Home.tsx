@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState, useCallback } from 'react'
 import styled from 'styled-components'
 import chef from '../../assets/img/chef.png'
 import Button from '../../components/Button'
@@ -10,13 +10,39 @@ import Balances from './components/Balances'
 import Banner from '../../components/Banner'
 import { Pagination, Checkbox } from 'antd'
 import { Link } from 'react-router-dom'
+import { getNft } from '../../api/client';
 
 
 const Home: React.FC = () => {
 
+  const [current, setCurrent] = useState(1)
+  const [page, setPage] = useState(1)
+  const [size, ] = useState(20)
+  const [nftList, setNftList] = useState({
+    count: 0,
+    list: []
+  })
+
   function onChange(e: any) {
     console.log(`checked = ${e.target.checked}`);
   }
+  function paginationChange(page: any, pageSize: any) {
+    console.log(`page, pageSize = ${page} ${pageSize}`);
+    setPage(page)
+    setCurrent(page)
+  }
+
+  useEffect(() => {
+    const getData = async () => {
+      const result = await getNft({ page, size })
+      console.log('result', result)
+      if (result.code === 0) {
+        setNftList(result.data)
+      }
+    }
+    getData()
+  }, [page, size])
+
 
   return (
     <Page>
@@ -53,22 +79,23 @@ const Home: React.FC = () => {
         </StyledContentHead>
         <StyledContentList>
           {
-            [1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 1, 1, 1].map(i => (
-              <StyledListLink to={`/assets/0x86ae6c95d7e266d6fa1b04b73f0b5a0f771b3f7b`}>
+            nftList.list.map(i => (
+              <StyledListLink to={`/assets/${i.tokenId}`}>
                 <StyledListCover>
-                  <img src="https://image.gameapps.hk/images/202002/26/5e998cac78633112.jpg" alt="cover" aria-label="cover" />
+                  <img src={i.logo} alt="cover" aria-label="cover" />
                 </StyledListCover>
-                <StyledListTitle>Binance Turns 3 Digital Card</StyledListTitle>
-                <StyledListInfo>
+                <StyledListTitle>{ i.name }</StyledListTitle>
+                <StyledListTitle>{ i.description }</StyledListTitle>
+                {/* <StyledListInfo>
                   <span>3days</span>
                   <span>1.3434DPC</span>
-                </StyledListInfo>
+                </StyledListInfo> */}
               </StyledListLink>
             ))
           }
         </StyledContentList>
         <StyledContentPagination>
-          <Pagination defaultCurrent={1} total={50} />
+          <Pagination current={current} total={nftList.count} defaultPageSize={size} onChange={ paginationChange } />
         </StyledContentPagination>
       </StyledContent>
     </Page>

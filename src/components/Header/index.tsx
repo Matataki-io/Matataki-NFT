@@ -56,8 +56,8 @@ const Header: React.FC = () => {
       const result = await createNft({
         tokenId: totalSupplyResult,
         account,
-        transactionHash: JSON.stringify(txHash.transactionHash),
-        tx: txHash,
+        transactionHash: txHash.transactionHash,
+        tx: JSON.stringify(txHash),
         logo: values.nft.logo,
         name: values.nft.name,
         symbol: values.nft.symbol,
