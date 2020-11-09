@@ -8,7 +8,7 @@ export interface nftInterface {
   signature?: string,
   logo: string,
   name: string,
-  symbol: string,
+  externalLink: string,
   description: string,
 }
 
@@ -30,3 +30,7 @@ export const createNft = (data: nftInterface): Promise<axiosResult> => client.po
 export const getNft = (params: paramsPaginationInterface): Promise<axiosResult> => client.get('/nft', { params })
 // 获取NFT
 export const getNftId = (tokenId: string): Promise<axiosResult> => client.get(`/nft/${tokenId}`)
+
+// 图片上传
+export const imageLogo = `${process.env.REACT_APP_API}/image/logo`
+export const OSSIMG = 'https://ssimg.frontenduse.top'

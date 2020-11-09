@@ -13,6 +13,7 @@ import { getTokenInfo, approve, createMiningPool, issueToken, totalSupply } from
 import { StakingMiningPoolFactory, MatatakiNFT } from '../../constants/tokenAddresses'
 import { parseUnits } from 'ethers/lib/utils'
 import { createNft, axiosResult } from '../../api/client';
+import UploadImage from '../UploadImage';
 
 const Header: React.FC = () => {
 
@@ -46,7 +47,7 @@ const Header: React.FC = () => {
         tx: JSON.stringify(txHash),
         logo: values.nft.logo,
         name: values.nft.name,
-        symbol: values.nft.symbol,
+        externalLink: values.nft.externalLink,
         description: values.nft.description,
       })
 
@@ -89,6 +90,10 @@ const Header: React.FC = () => {
     setVisible(false)
   };
 
+  const handleUploadImage = (src: string) => {
+    form.setFieldsValue({ nft: { logo: src } });
+  };
+
   return (
     <StyledHeader>
       <StyledHeaderContainer>
@@ -111,16 +116,17 @@ const Header: React.FC = () => {
         onCancel={e => handleCancel(e)}
         footer={null}
       >
-        <Form {...layout} form={form} name="control-hooks" onFinish={onFinish} 
+        <Form {...layout} form={form} name="control-hooks" onFinish={onFinish}
         layout="vertical">
           <Form.Item name={['nft', 'logo']} label="LOGO" rules={[{ required: true, message: 'Please input logo url!' }]}>
-            <Input placeholder="Please input logo url" />
+            <UploadImage onUploadImage={handleUploadImage}></UploadImage>
+            {/* <Input placeholder="Please input logo url" /> */}
           </Form.Item>
           <Form.Item name={['nft', 'name']} label="NAME" rules={[{ required: true, message: 'Please input name!' }]}>
             <Input placeholder="Please input name" />
           </Form.Item>
           <Form.Item name={['nft', 'externalLink']} label="EXTERNAL LINK" rules={[{ required: true, message: 'Please input external link' }]}>
-            <StyledCreateText>Matataki-NFT will include a link to this URL on this item's detail page, so that users can click to learn more about it. You are welcome to link to your own webpage with more details.</StyledCreateText>
+            {/* <StyledCreateText>Matataki-NFT will include a link to this URL on this item's detail page, so that users can click to learn more about it. You are welcome to link to your own webpage with more details.</StyledCreateText> */}
             <Input placeholder="Please input external link" />
           </Form.Item>
           <Form.Item name={['nft', 'description']} label="DESCRIPTION" rules={[{ required: true, message: 'Please input description!' }]}>

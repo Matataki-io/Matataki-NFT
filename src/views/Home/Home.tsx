@@ -10,7 +10,7 @@ import Balances from './components/Balances'
 import Banner from '../../components/Banner'
 import { Pagination, Checkbox } from 'antd'
 import { Link } from 'react-router-dom'
-import { getNft } from '../../api/client';
+import { getNft, OSSIMG } from '../../api/client';
 
 
 const Home: React.FC = () => {
@@ -82,7 +82,7 @@ const Home: React.FC = () => {
             nftList.list.map(i => (
               <StyledListLink to={`/assets/${i.tokenId}`}>
                 <StyledListCover>
-                  <img src={i.logo} alt="cover" aria-label="cover" />
+                  <img src={ `${OSSIMG}/${i.logo}`} alt="cover" aria-label="cover" />
                 </StyledListCover>
                 <StyledListTitle>{ i.name }</StyledListTitle>
                 <StyledListTitle>{ i.description }</StyledListTitle>
@@ -174,6 +174,9 @@ const StyledListTitle = styled.p`
   line-height: 22px;
   padding: 0;
   margin: 16px 16px 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `
 const StyledListInfo = styled.div`
   margin: 0 16px 0;
