@@ -23,25 +23,11 @@ const Header: React.FC = () => {
 
 
   const layout = {
-    labelCol: { span: 6 },
-    wrapperCol: { span: 18 },
+    labelCol: { span: 24 },
+    wrapperCol: { span: 24 },
   };
   const tailLayout = {
-    wrapperCol: { offset: 6, span: 18 },
-  };
-
-  const onGenderChange = (value: any) => {
-    switch (value) {
-      case 'male':
-        form.setFieldsValue({ note: 'Hi, man!' });
-        return;
-      case 'female':
-        form.setFieldsValue({ note: 'Hi, lady!' });
-        return;
-      case 'other':
-        form.setFieldsValue({ note: 'Hi there!' });
-        return;
-    }
+    wrapperCol: { offset: 0, span: 24 },
   };
 
   const onFinish = async (values: any) => {
@@ -89,13 +75,6 @@ const Header: React.FC = () => {
     form.resetFields();
   };
 
-  const onFill = () => {
-    form.setFieldsValue({
-      note: 'Hello world!',
-      gender: 'male',
-    });
-  };
-
   const showModal = () => {
     setVisible(true)
   };
@@ -109,7 +88,6 @@ const Header: React.FC = () => {
     console.log(e);
     setVisible(false)
   };
-
 
   return (
     <StyledHeader>
@@ -133,18 +111,20 @@ const Header: React.FC = () => {
         onCancel={e => handleCancel(e)}
         footer={null}
       >
-        <Form {...layout} form={form} name="control-hooks" onFinish={onFinish}>
+        <Form {...layout} form={form} name="control-hooks" onFinish={onFinish} 
+        layout="vertical">
           <Form.Item name={['nft', 'logo']} label="LOGO" rules={[{ required: true, message: 'Please input logo url!' }]}>
             <Input placeholder="Please input logo url" />
           </Form.Item>
           <Form.Item name={['nft', 'name']} label="NAME" rules={[{ required: true, message: 'Please input name!' }]}>
             <Input placeholder="Please input name" />
           </Form.Item>
-          <Form.Item name={['nft', 'symbol']} label="SYMBOL" rules={[{ required: true, message: 'Please input symbol!' }]}>
-            <Input placeholder="Please input symbol" />
+          <Form.Item name={['nft', 'externalLink']} label="EXTERNAL LINK" rules={[{ required: true, message: 'Please input external link' }]}>
+            <StyledCreateText>Matataki-NFT will include a link to this URL on this item's detail page, so that users can click to learn more about it. You are welcome to link to your own webpage with more details.</StyledCreateText>
+            <Input placeholder="Please input external link" />
           </Form.Item>
           <Form.Item name={['nft', 'description']} label="DESCRIPTION" rules={[{ required: true, message: 'Please input description!' }]}>
-            <Input.TextArea placeholder="Please input description" />
+            <Input.TextArea placeholder="Please input description" rows={4} />
           </Form.Item>
           <Form.Item {...tailLayout}>
             <Button type="primary" htmlType="submit" style={{ width: '100%' }} loading={requestedSubmit}>
@@ -184,6 +164,13 @@ const StyledHeaderLogoLink = styled(Link)`
 const StyledHeaderUser = styled.div`
   display: flex;
   align-items: center;
+`
+const StyledCreateText = styled.p`
+  font-size: 14px;
+  margin: -10px 0 10px;
+  padding: 0;
+  color: rgb(170, 170, 170);
+  line-height: 1.5;
 `
 
 
