@@ -3,8 +3,8 @@ import client from '../utils/client';
 export interface nftInterface {
   tokenId: number,
   account: string,
-  transactionHash: string,
-  tx: string,
+  transactionHash?: string,
+  tx?: string,
   signature?: string,
   logo: string,
   name: string,

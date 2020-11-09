@@ -38,18 +38,19 @@ const Header: React.FC = () => {
       message.success('Start Create NFT ...')
 
       const contract = await getContractMatatakiNFT(ethereum as provider, MatatakiNFT)
-      const txHash = await issueToken(contract, account)
       const totalSupplyResult = await totalSupply(contract)
+      const tokenId = Number(totalSupplyResult) + 1
+
       const result = await createNft({
-        tokenId: totalSupplyResult,
+        tokenId: tokenId,
         account,
-        transactionHash: txHash.transactionHash,
-        tx: JSON.stringify(txHash),
         logo: values.nft.logo,
         name: values.nft.name,
         externalLink: values.nft.externalLink,
         description: values.nft.description,
       })
+      const txHash = await issueToken(contract, account)
+
 
       if (txHash) {
         message.success('Create NFT Success...')

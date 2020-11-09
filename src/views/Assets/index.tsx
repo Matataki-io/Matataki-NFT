@@ -4,7 +4,7 @@ import Page from '../../components/Page'
 import Banner from '../../components/Banner'
 import { Tag } from 'antd'
 import { useHistory } from 'react-router-dom'
-import { getNftId, nftInterface } from '../../api/client'
+import { getNftId, nftInterface, OSSIMG } from '../../api/client'
 import { useParams } from "react-router-dom";
 import { isEmpty } from 'lodash';
 
@@ -37,7 +37,7 @@ const Assets: React.FC = () => {
           <StyledContent>
             <StyledContentInfo>
               <StyledContentCover>
-                <img src={nftData.logo} alt="cover" aria-label="cover" />
+                <img src={ `${OSSIMG}/${nftData.logo}`} alt="cover" aria-label="cover" />
               </StyledContentCover>
               <StyledContentCard>
                 <StyledContentCardTitle>
