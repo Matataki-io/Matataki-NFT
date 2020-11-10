@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from 'react'
+import React, { useEffect, useState, useCallback, useContext } from 'react'
 import styled from 'styled-components'
 import chef from '../../assets/img/chef.png'
 import Button from '../../components/Button'
@@ -10,7 +10,11 @@ import Balances from './components/Balances'
 import Banner from '../../components/Banner'
 import { Pagination, Checkbox } from 'antd'
 import { Link } from 'react-router-dom'
-import { getNft, OSSIMG } from '../../api/client';
+import { getNft, OSSIMG } from '../../api/client'
+import ethers from 'ethers'
+import { MatatakiNFT } from '../../constants/tokenAddresses'
+import MatatakiNFTABI from '../../constants/abi/MatatakiNFT.json'
+import { Network, NetworksName } from '../../config/index'
 
 
 const Home: React.FC = () => {
@@ -41,8 +45,37 @@ const Home: React.FC = () => {
       }
     }
     getData()
-  }, [page, size])
 
+    try {
+      const init = async () => {
+          // const provider = ethers.getDefaultProvider(NetworksName[Network]);
+        const web3: any = (window as any).web3
+        const provider = new ethers.providers.Web3Provider(web3.currentProvider);
+        // const provider = new ethers.providers.JsonRpcProvider('https://eth-rinkeby.alchemyapi.io/v2/SLFdIfubZlDvaKjRv-rP3Ie0msesJydB');
+        const contract = new ethers.Contract(MatatakiNFT, MatatakiNFTABI, provider);
+
+        const contractName = await contract.name();
+        console.log('current name', contractName);
+
+        contract.on('Transfer', (address, to, tokenId, event) => {
+
+          getData()
+
+          console.log(address);
+          console.log(to);
+          console.log(tokenId);
+          console.log(tokenId.toString());
+          // 查看后面的事件触发器  Event Emitter 了解事件对象的属性
+          console.log(event);
+          console.log(event.blockNumber);
+        });
+      }
+      init()
+    } catch (e) {
+      console.log('eth event error', e);
+    }
+
+  }, [page, size])
 
   return (
     <Page>
