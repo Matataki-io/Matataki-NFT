@@ -25,8 +25,8 @@ const AccountModal: React.FC<ModalProps> = ({ onDismiss }) => {
     reset()
   }, [onDismiss, reset])
 
-  const sushi = useSushi()
-  const sushiBalance = useTokenBalance(getSushiAddress(sushi))
+  // const sushi = useSushi()
+  // const sushiBalance = useTokenBalance(getSushiAddress(sushi))
 
   return (
     <Modal>
@@ -34,7 +34,7 @@ const AccountModal: React.FC<ModalProps> = ({ onDismiss }) => {
       <ModalContent>
         <Spacer />
 
-        <div style={{ display: 'flex' }}>
+        {/* <div style={{ display: 'flex' }}>
           <StyledBalanceWrapper>
             <CardIcon>
               <span>🍣</span>
@@ -44,11 +44,11 @@ const AccountModal: React.FC<ModalProps> = ({ onDismiss }) => {
               <Label text="SUSHI Balance" />
             </StyledBalance>
           </StyledBalanceWrapper>
-        </div>
+        </div> */}
 
         <Spacer />
         <Button
-          href={`https://etherscan.io/address/${account}`}
+          href={`${process.env.REACT_APP_ETHERSCAN_URL}/address/${account}`}
           text="View on Etherscan"
           variant="secondary"
         />
