@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useCallback, useContext } from 'react'
 import styled from 'styled-components'
+import { useWallet } from 'use-wallet'
 import chef from '../../assets/img/chef.png'
 import Button from '../../components/Button'
 import Container from '../../components/Container'
@@ -10,7 +11,7 @@ import Balances from './components/Balances'
 import Banner from '../../components/Banner'
 import { Pagination, Checkbox } from 'antd'
 import { Link } from 'react-router-dom'
-import { getNft, OSSIMG } from '../../api/client'
+import { getNft, OSSIMG, myNftInterface } from '../../api/client'
 import ethers from 'ethers'
 import { MatatakiNFT } from '../../constants/tokenAddresses'
 import MatatakiNFTABI from '../../constants/abi/MatatakiNFT.json'
@@ -18,17 +19,19 @@ import { Network, NetworksName } from '../../config/index'
 
 
 const Home: React.FC = () => {
-
+  const { account }: { account: string } = useWallet()
   const [current, setCurrent] = useState(1)
   const [page, setPage] = useState(1)
   const [size, ] = useState(20)
+  const [isAccount, setIsAccount] = useState(false)
   const [nftList, setNftList] = useState({
     count: 0,
     list: []
   })
 
-  function onChange(e: any) {
+  function HandleAccountOnChange(e: any) {
     console.log(`checked = ${e.target.checked}`);
+    setIsAccount(e.target.checked)
   }
   function paginationChange(page: any, pageSize: any) {
     console.log(`page, pageSize = ${page} ${pageSize}`);
@@ -38,7 +41,12 @@ const Home: React.FC = () => {
 
   useEffect(() => {
     const getData = async () => {
-      const result = await getNft({ page, size })
+      let params: myNftInterface = { page, size }
+      // show self nft
+      if (isAccount && account) {
+        params = { ...params, account: account }
+      }
+      const result = await getNft(params)
       console.log('result', result)
       if (result.code === 0) {
         setNftList(result.data)
@@ -75,39 +83,18 @@ const Home: React.FC = () => {
       console.log('eth event error', e);
     }
 
-  }, [page, size])
+  }, [account, isAccount, page, size])
 
   return (
     <Page>
       <Banner></Banner>
-      {/* <PageHeader
-        icon={<img src={chef} height={120} />}
-        title="MasterChef is Ready"
-        subtitle="Stake Uniswap LP tokens to claim your very own yummy SUSHI!"
-      />
-
-      <Container>
-        <Balances />
-      </Container>
-      <Spacer size="lg" />
-      <StyledInfo>
-        🏆<b>Pro Tip</b>: SUSHI-ETH UNI-V2 LP token pool yields TWICE more token
-        rewards per block.
-      </StyledInfo>
-      <Spacer size="lg" />
-      <div
-        style={{
-          margin: '0 auto',
-        }}
-      >
-        <Button text="🔪 See the Menu" to="/farms" variant="secondary" />
-      </div> */}
       <StyledContent>
         <StyledContentHead>
           <div>Didital goods auction</div>
           <div>
-            <Checkbox onChange={onChange}>On Sale</Checkbox>
-            <Checkbox onChange={onChange}>My NFT</Checkbox>
+            {
+              account ? <Checkbox onChange={HandleAccountOnChange}>My NFT</Checkbox> : ''
+            }
           </div>
         </StyledContentHead>
         <StyledContentList>

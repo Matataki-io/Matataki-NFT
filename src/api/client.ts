@@ -23,11 +23,15 @@ export interface axiosResult  {
   data?: any
 }
 
+export interface myNftInterface extends paramsPaginationInterface {
+  account?: string,
+}
+
 
 // 创建NFT
 export const createNft = (data: nftInterface): Promise<axiosResult> => client.post('/nft', data)
 // 获取全部NFT
-export const getNft = (params: paramsPaginationInterface): Promise<axiosResult> => client.get('/nft', { params })
+export const getNft = (params: myNftInterface): Promise<axiosResult> => client.get('/nft', { params })
 // 获取NFT
 export const getNftId = (tokenId: string): Promise<axiosResult> => client.get(`/nft/${tokenId}`)
 

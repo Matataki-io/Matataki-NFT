@@ -14,12 +14,14 @@ import ModalContent from '../../ModalContent'
 import ModalTitle from '../../ModalTitle'
 import Spacer from '../../Spacer'
 import Value from '../../Value'
+import store from '../../../utils/store'
 
 const AccountModal: React.FC<ModalProps> = ({ onDismiss }) => {
   const { account, reset } = useWallet()
 
   const handleSignOutClick = useCallback(() => {
     onDismiss!()
+    store.remove('connect-type')
     reset()
   }, [onDismiss, reset])
 
