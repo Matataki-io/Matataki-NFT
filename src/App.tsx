@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState, useContext } from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import { ThemeProvider } from 'styled-components'
 import { UseWalletProvider } from 'use-wallet'
@@ -17,7 +17,9 @@ import Stake from './views/Stake'
 import Header from "./components/Header"
 import Assets from './views/Assets/index'
 
-import { Network } from "./config/index";
+import { Network } from "./config/index"
+import CreateItemProvider from './contexts/CreateItemProvider';
+import CreateItemModal from './components/CreateItemModal';
 
 const App: React.FC = () => {
   const [mobileMenu, setMobileMenu] = useState(false)
@@ -52,6 +54,7 @@ const App: React.FC = () => {
         </Switch>
       </Router>
       <Disclaimer />
+      <CreateItemModal />
     </Providers>
   )
 }
@@ -66,11 +69,13 @@ const Providers: React.FC = ({ children }) => {
       // }}
       >
         <SushiProvider>
-          <TransactionProvider>
-            <FarmsProvider>
-              <ModalsProvider>{children}</ModalsProvider>
-            </FarmsProvider>
-          </TransactionProvider>
+          <CreateItemProvider>
+            <TransactionProvider>
+              <FarmsProvider>
+                <ModalsProvider>{children}</ModalsProvider>
+              </FarmsProvider>
+            </TransactionProvider>
+          </CreateItemProvider>
         </SushiProvider>
       </UseWalletProvider>
     </ThemeProvider>
