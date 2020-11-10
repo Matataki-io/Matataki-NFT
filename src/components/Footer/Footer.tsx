@@ -22,13 +22,23 @@ const Footer: React.FC = () => (
 
       <StyledFooterUlContent>
         <StyledFooterUl>
-          <li>About</li>
-          <li>Suggestions</li>
-          <li>FAQ</li>
+          <li>
+            <a href="https://github.com/Matataki-io/Matataki-NFT" rel="noopener noreferrer" target="_blank">About</a>
+          </li>
+          <li>
+            <a href="https://github.com/Matataki-io/Matataki-NFT" rel="noopener noreferrer" target="_blank">Suggestions</a>
+          </li>
+          <li>
+            <a href="https://github.com/Matataki-io/Matataki-NFT" rel="noopener noreferrer" target="_blank">FAQ</a>
+          </li>
         </StyledFooterUl>
         <StyledFooterUl>
-          <li>Privacy Policy</li>
-          <li>Terms of Service</li>
+        <li>
+            <a href="https://github.com/Matataki-io/Matataki-NFT" rel="noopener noreferrer" target="_blank">Privacy Policy</a>
+          </li>
+          <li>
+            <a href="https://github.com/Matataki-io/Matataki-NFT" rel="noopener noreferrer" target="_blank">Terms of Service</a>
+          </li>
         </StyledFooterUl>
       </StyledFooterUlContent>
     </StyledFooterContainer>
@@ -90,6 +100,10 @@ const StyledFooterUl = styled.ul`
     color: #FFFFFF;
     line-height: 22px;
     margin: 16px 0;
+    a {
+      color: #FFFFFF;
+      text-decoration: none;
+    }
   }
 `
 

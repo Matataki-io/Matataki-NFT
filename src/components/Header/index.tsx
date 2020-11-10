@@ -1,6 +1,5 @@
 import React, { useContext } from 'react'
 import styled from 'styled-components'
-import { Button } from 'antd';
 import { Link } from 'react-router-dom'
 import { useWallet } from 'use-wallet'
 
@@ -21,9 +20,9 @@ const Header: React.FC = () => {
           <img className="logo-text" src={logoText} alt="logo" aria-label="logo" />
         </StyledHeaderLogoLink>
         <StyledHeaderUser>
-          <input type="text"></input>
+          {/* <input type="text"></input> */}
           {
-            account ? ( <Button type="primary" onClick={() => CreateItemContext.setVisible(true)}> Create NFT</Button>) : ''
+            account ? ( <StyledCreateButton style={{ marginRight: 8 }} onClick={() => CreateItemContext.setVisible(true)}> Create NFT</StyledCreateButton>) : ''
           }
           <AccountButton />
         </StyledHeaderUser>
@@ -66,6 +65,22 @@ const StyledCreateText = styled.p`
   padding: 0;
   color: rgb(170, 170, 170);
   line-height: 1.5;
+`
+
+const StyledCreateButton = styled.button`
+  outline: none;
+  border-radius: 8px;
+  border: 2px solid #FFFFFF;
+  background-color: transparent;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+  color: #FFFFFF;
+  padding: 0 28px;
+  text-transform: uppercase;
+  box-sizing: border-box;
+  height: 40px;
+  cursor: pointer;
 `
 
 

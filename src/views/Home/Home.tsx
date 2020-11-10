@@ -16,6 +16,7 @@ import ethers from 'ethers'
 import { MatatakiNFT } from '../../constants/tokenAddresses'
 import MatatakiNFTABI from '../../constants/abi/MatatakiNFT.json'
 import { Network, NetworksName } from '../../config/index'
+import { AuctionIcon } from '../../components/IconAnt'
 
 
 const Home: React.FC = () => {
@@ -90,12 +91,15 @@ const Home: React.FC = () => {
       <Banner></Banner>
       <StyledContent>
         <StyledContentHead>
-          <div>Didital goods auction</div>
-          <div>
+          <StyledFlexCenter>
+            <AuctionIcon></AuctionIcon>
+            <span style={{ marginLeft: 4 }}>Didital goods auction</span>
+          </StyledFlexCenter>
+          <StyledFlexCenter>
             {
               account ? <Checkbox onChange={HandleAccountOnChange}>My NFT</Checkbox> : ''
             }
-          </div>
+          </StyledFlexCenter>
         </StyledContentHead>
         <StyledContentList>
           {
@@ -147,6 +151,11 @@ const StyledContentHead = styled.div`
     justify-content: space-between;
     margin-top: 40px;
   `
+
+const StyledFlexCenter = styled.div`
+  display: flex;
+  align-items: center;
+`
 const StyledContentList = styled.div`
     display: grid;
     grid-template-columns: repeat(5, 1fr);
