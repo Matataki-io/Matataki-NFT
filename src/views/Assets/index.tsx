@@ -7,6 +7,9 @@ import { useHistory } from 'react-router-dom'
 import { getNftId, nftInterface, OSSIMG } from '../../api/client'
 import { useParams } from "react-router-dom";
 import { isEmpty } from 'lodash';
+import { LeftOutlined, ShareAltOutlined, LinkOutlined } from '@ant-design/icons';
+import {CopyToClipboard} from 'react-copy-to-clipboard';
+import { message } from 'antd';
 
 interface nftResultInterface extends nftInterface {}
 
@@ -30,7 +33,10 @@ const Assets: React.FC = () => {
   return (
     <Page>
       <StyledHead>
-        <StyledHeadBack onClick={() => history.goBack()}>Back To NFTs</StyledHeadBack>
+        <StyledHeadBack onClick={() => history.goBack()}>
+          <LeftOutlined />
+          Back To NFTs
+        </StyledHeadBack>
       </StyledHead>
       {
         isEmpty(nftData) ? (<StyledLoading>Loading...</StyledLoading>) : (
@@ -44,22 +50,31 @@ const Assets: React.FC = () => {
                   <span>icon Description</span>
                 </StyledContentCardTitle>
                 <StyledContentCardContent>
-                  {nftData.description}
-                  <a href="#">Unfold</a>
+                  <StyledPriceDescription>{nftData.description}</StyledPriceDescription>
+                  {/* <a href="#">Unfold</a> */}
                 </StyledContentCardContent>
               </StyledContentCard>
             </StyledContentInfo>
 
             <StyledContentPrice>
               <StyledPriceHead>
-                <Tag color="cyan">Now On Sale</Tag>
-                <span>lock icon 3d 00:00:00</span>
-                <StyledPriceHeadShare>share icon</StyledPriceHeadShare>
+                <Tag color="cyan">New</Tag>
+                {/* <span>lock icon 3d 00:00:00</span> */}
+                <StyledPriceHeadShare>
+                  <StyledPriceHeadBlock>
+                    <a href={nftData.externalLink} target="_blank" rel="noopener noreferrer"><LinkOutlined /></a>
+                  </StyledPriceHeadBlock>
+                  <StyledPriceHeadBlock>
+                  <CopyToClipboard text={window.location.href} onCopy={() => message.success('Copy Success')}>
+                    <ShareAltOutlined />
+                  </CopyToClipboard>
+                  </StyledPriceHeadBlock>
+                </StyledPriceHeadShare>
               </StyledPriceHead>
               <StyledPriceTitle>{nftData.name}</StyledPriceTitle>
               <StyledPriceUser>
-                <StyledPriceUserBy>Created by</StyledPriceUserBy>
-                <StyledPriceUserByAuthor>avatar {nftData.account}</StyledPriceUserByAuthor>
+                <StyledPriceUserBy>Created by </StyledPriceUserBy>
+                <StyledPriceUserByAuthor href={`${process.env.REACT_APP_ETHERSCAN_URL}/address/${nftData.account}`} target="_blank" rel="noopener noreferrer">{nftData.account}</StyledPriceUserByAuthor>
               </StyledPriceUser>
 
               <StyledContentCard>
@@ -67,20 +82,7 @@ const Assets: React.FC = () => {
                   <span>icon Current Price</span>
                 </StyledContentCardTitle>
                 <StyledContentCardContent>
-                  <div>
-                    <div>
-                      <div>New Offer</div>
-                      <div>7.7545<span>KJM($1.312)</span></div>
-                    </div>
-                    <div>
-                      <div>New Offer</div>
-                      <div>7.7545<span>KJM($1.312)</span></div>
-                    </div>
-                  </div>
-                  <div>
-                    <input type="text" value="Input the price you want to offer" />
-                    <button>participate in the auction</button>
-                  </div>
+                  ...
                 </StyledContentCardContent>
               </StyledContentCard>
 
@@ -90,8 +92,8 @@ const Assets: React.FC = () => {
                   <span>icon Price History</span>
                 </StyledContentCardTitle>
                 <StyledContentCardContent>
-                  charts
-            </StyledContentCardContent>
+                  ...
+                </StyledContentCardContent>
               </StyledContentCard>
 
             </StyledContentPrice>
@@ -244,6 +246,15 @@ const StyledPriceHead = styled.div`
 const StyledPriceHeadShare = styled.span`
   margin-left: auto;
 `
+const StyledPriceHeadBlock = styled.div`
+  display: inline-block;
+  padding: 0 0 0 12px;
+  cursor: pointer;
+  color: #333;
+  a {
+    color: inherit;
+  }
+`
 const StyledPriceTitle = styled.p`
   font-size: 36px;
   font-weight: 600;
@@ -252,6 +263,14 @@ const StyledPriceTitle = styled.p`
   padding: 16px 0;
   margin: 0;
 `
+const StyledPriceDescription = styled.p`
+  font-size: 16px;
+  line-height: 1.5;
+  color: #7f7f7f;
+  word-break: break-word;
+`
+
+
 const StyledPriceUser = styled.div``
 const StyledPriceUserBy = styled.span`
   font-size: 16px;
@@ -272,6 +291,8 @@ const StyledLoading = styled.div`
   max-width: 100px;
   text-align: center;
 `
+
+
 
 
 
