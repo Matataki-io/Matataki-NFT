@@ -40,8 +40,15 @@ const StyledBanner = styled.section`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  overflow: hidden;
+  @media screen and (max-width: 576px) {
+    background-position: right;
+  }
   .banner {
     height: 36px;
+    @media screen and (max-width: 576px) {
+      height: 22px;
+    }
   }
   .banner-title {
     font-size: 20px;
@@ -50,6 +57,10 @@ const StyledBanner = styled.section`
     line-height: 28px;
     padding: 0;
     margin: 20px 0 40px;
+    @media screen and (max-width: 576px) {
+      font-size: 18px;
+      padding: 0px 20px;
+    }
   }
 `
 
@@ -67,6 +78,10 @@ const StyledBannerButton = styled.button`
   cursor: pointer;
   &:hover {
     background: #1940c5;
+  }
+  @media screen and (max-width: 576px) {
+    font-size: 14px;
+    padding: 10px 30px;
   }
 `
 

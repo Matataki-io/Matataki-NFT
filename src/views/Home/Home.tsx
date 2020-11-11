@@ -157,12 +157,24 @@ const StyledFlexCenter = styled.div`
   align-items: center;
 `
 const StyledContentList = styled.div`
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    grid-column-gap: 24px;
-    grid-row-gap: 24px;
-    margin-top: 24px;
-  `
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-column-gap: 24px;
+  grid-row-gap: 24px;
+  margin-top: 24px;
+  @media screen and (max-width: 1200px) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  @media screen and (max-width: 992px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  @media screen and (max-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  @media screen and (max-width: 576px) {
+    grid-template-columns: repeat(1, 1fr);
+  }
+`
 const StyledContentPagination = styled.div`
   display: felx;
   align-items: cennter;
@@ -171,7 +183,7 @@ const StyledContentPagination = styled.div`
 
 `
 const StyledListLink = styled(Link)`
-  max-width: 256px;
+  /* max-width: 256px; */
   height: 360px;
   background: #FFFFFF;
   box-shadow: 0px 0px 16px 0px rgba(0, 0, 0, 0.06);
@@ -184,12 +196,18 @@ const StyledListLink = styled(Link)`
   &:hover {
     box-shadow: 0px 0px 16px 0px rgba(0, 0, 0, 0.16);
   }
+  @media screen and (max-width: 576px) {
+    height: 430px;
+  }
 
 `
 const StyledListCover = styled.div`
   width: 100%;
   height: 256px;
   overflow: hidden;
+  @media screen and (max-width: 576px) {
+    height: 326px;
+  }
   img {
     width: 100%;
     height: 100%;

@@ -47,6 +47,10 @@ const StyledButton = styled.button`
   box-sizing: border-box;
   height: 40px;
   cursor: pointer;
+  white-space: nowrap;
+  @media screen and (max-width: 576px) {
+    padding: 0 10px;
+  }
 `
 
 export default AccountButton

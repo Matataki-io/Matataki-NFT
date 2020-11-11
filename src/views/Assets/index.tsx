@@ -47,7 +47,7 @@ const Assets: React.FC = () => {
               <StyledContentCover>
                 <img src={ `${OSSIMG}/${nftData.logo}`} alt="cover" aria-label="cover" />
               </StyledContentCover>
-              <StyledContentCard>
+              <StyledContentCard className="assets-description">
                 <StyledContentCardTitle>
                   <span><DescriptionIcon />&nbsp;Description</span>
                 </StyledContentCardTitle>
@@ -107,80 +107,13 @@ const Assets: React.FC = () => {
   )
 }
 
-// const StyledContent = styled.div`
-//   max-width: 1400px;
-//   padding: 0 15px;
-//   margin: 0 auto 120px;
-//   box-sizing: border-box;
-// `
-const StyledContentHead = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-top: 40px;
-  `
-const StyledContentList = styled.div`
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    grid-column-gap: 24px;
-    grid-row-gap: 24px;
-    margin-top: 24px;
-  `
-const StyledContentPagination = styled.div`
-display: felx;
-align-items: cennter;
-justify-content: center;
-margin-top: 40px;
-
-`
-const StyledList = styled.div`
-  width: 256px;
-  height: 360px;
-  background: #FFFFFF;
-  box-shadow: 0px 0px 16px 0px rgba(0, 0, 0, 0.06);
-  border-radius: 16px;
-  overflow: hidden;
-  cursor: pointer;
-  transition: all .2s;
-  &:hover {
-    box-shadow: 0px 0px 16px 0px rgba(0, 0, 0, 0.16);
-  }
-
-`
-const StyledListCover = styled.div`
-  width: 100%;
-  height: 256px;
-  overflow: hidden;
-  img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-`
-const StyledListTitle = styled.p`
-  font-size: 16px;
-  font-weight: 500;
-  color: #333333;
-  line-height: 22px;
-  padding: 0;
-  margin: 16px 16px 0;
-`
-const StyledListInfo = styled.div`
-  margin: 24px 16px 0;
+const StyledHead = styled.div`
+  max-width: 1400px;
+  padding: 0 15px;
+  box-sizing: border-box;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-`
-
-// ----
-
-const StyledHead = styled.div`
-max-width: 1400px;
-padding: 0 15px;
-box-sizing: border-box;
-    display: flex;
-    align-items: center;
-    margin: 40px auto 20px;
+  margin: 40px auto 20px;
 `
 const StyledHeadBack = styled.span`
   font-size: 16px;
@@ -195,13 +128,36 @@ const StyledContent = styled.div`
   margin: 0 auto 40px;
   box-sizing: border-box;
   display: flex;
+  flex-wrap: wrap;
+  @media screen and (max-width: 992px) {
+    .assets-description {
+      margin-top: 0;
+    }
+  }
+  @media screen and (max-width: 576px) {
+    .assets-description {
+      margin-top: 20px;
+    }
+  }
 `
 const StyledContentInfo = styled.div`
   width: calc(40% - 24px);
   margin-right: 24px;
+  @media screen and (max-width: 992px) {
+    width: 100%;
+    margin-right: 0;
+    display: flex;
+  }
+  @media screen and (max-width: 576px) {
+    flex-wrap: wrap;
+  }
 `
 const StyledContentPrice = styled.div`
-  width: 60%
+  width: 60%;
+  @media screen and (max-width: 992px) {
+    width: 100%;
+    margin-top: 20px;
+  }
 `
 
 const StyledContentCover = styled.div`
@@ -215,6 +171,17 @@ const StyledContentCover = styled.div`
     height: 100%;
     object-fit: cover;
   }
+  @media screen and (max-width: 992px) {
+    width: 50%;
+    flex: 0 0 50%;
+    margin-right: 20px;
+  }
+  @media screen and (max-width: 576px) {
+    width: 100%;
+    height: 345px;
+    flex: 0 0 100%;
+    margin-right: 0;
+  }
 `
 // common card
 const StyledContentCard = styled.div`
@@ -222,7 +189,7 @@ const StyledContentCard = styled.div`
   border-radius: 16px;
   border: 1px solid #DBDBDB;
   overflow: hidden;
-  margin-top: 24px;
+  margin-top: 20px;
 `
 const StyledContentCardTitle = styled.div`
   height: 53px;
@@ -288,6 +255,7 @@ const StyledPriceUserByAuthor = styled.a`
   font-weight: 500;
   color: #193CB1;
   line-height: 22px;
+  word-break: break-word;
 `
 const StyledLoading = styled.div`
   margin: 0 auto;

@@ -43,6 +43,10 @@ const StyledHeaderContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  @media screen and (max-width: 576px) {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
 `
 const StyledHeaderLogoLink = styled(Link)`
   display: flex;
@@ -53,6 +57,10 @@ const StyledHeaderLogoLink = styled(Link)`
   .logo-text {
     height: 16px;
     margin-left: 10px;
+    @media screen and (max-width: 576px) {
+      height: 10px;
+      margin-left: 2px;
+    }
   }
 `
 const StyledHeaderUser = styled.div`
@@ -81,6 +89,10 @@ const StyledCreateButton = styled.button`
   box-sizing: border-box;
   height: 40px;
   cursor: pointer;
+  white-space: nowrap;
+  @media screen and (max-width: 576px) {
+    padding: 0 10px;
+  }
 `
 
 
