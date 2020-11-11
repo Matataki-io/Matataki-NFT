@@ -41,15 +41,17 @@ export const addressMap = {
 export const contractAddresses = {
   sushi: {
     1: '0x6b3595068778dd592e39a122f4f5a5cf09c90fe2',
+    4: '0x4c9cf20d2f9ef4b6c2d60bbdadb5d9e2e9f7c3d2',
   },
   masterChef: {
     1: '0xc2edad668740f1aa35e4d8f227fb8e17dca888cd',
+    4: '0xdffe697215447d7c6529b4b677656747f0bfe0fb',
   },
   weth: {
     1: '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
+    4: '0xc778417e063141139fce010982780140aa0cd5ab',
   },
 }
-
 /*
 UNI-V2 LP Address on mainnet for reference
 ==========================================
@@ -68,7 +70,8 @@ UNI-V2 LP Address on mainnet for reference
 12 SUSHI 0xce84867c3c02b05dc570d0135103d3fb9cc19433
 */
 
-export const supportedPools = [
+export const supportedPools =[]
+export const supportedPoolsBackUp = [
   {
     pid: 12,
     lpAddresses: {

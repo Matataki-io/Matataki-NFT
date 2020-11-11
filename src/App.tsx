@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState, useContext } from 'react'
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
 import { ThemeProvider } from 'styled-components'
-import { UseWalletProvider } from 'use-wallet'
+import { UseWalletProvider, useWallet } from 'use-wallet'
 import DisclaimerModal from './components/DisclaimerModal'
 import MobileMenu from './components/MobileMenu'
 import TopBar from './components/TopBar'
@@ -22,6 +22,7 @@ import CreateItemProvider from './contexts/CreateItemProvider'
 import CreateItemModal from './components/CreateItemModal'
 
 const App: React.FC = () => {
+
   // const [mobileMenu, setMobileMenu] = useState(false)
 
   // const handleDismissMobileMenu = useCallback(() => {
