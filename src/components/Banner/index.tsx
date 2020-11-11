@@ -1,5 +1,7 @@
 import React, { useContext } from 'react'
 import styled from 'styled-components'
+import { useWallet } from 'use-wallet'
+import { message } from 'antd';
 
 import banner from "../../assets/img/banner.png";
 import bannerTitle from "../../assets/img/banner-title.png";
@@ -7,11 +9,21 @@ import { Context } from '../../contexts/CreateItemProvider'
 
 const Header: React.FC = () => {
   const CreateItemContext = useContext(Context);
+  const { account }: { account: string } = useWallet()
+
+  const showCreateItemModal = () => {
+    if (account) {
+      CreateItemContext.setVisible(true)
+    } else {
+      message.info('please sign in!')
+    }
+  }
+
   return (
     <StyledBanner>
       <img className="banner" src={bannerTitle} alt="banner title" aria-label="banner title" />
       <p className="banner-title">Buy, sell, and discover limited-edition goods with Matataki Fan Tickets</p>
-      <StyledBannerButton onClick={ () => CreateItemContext.setVisible(true) }>CREATE A NEW NFT NOW !</StyledBannerButton>
+      <StyledBannerButton onClick={ () => showCreateItemModal() }>CREATE A NEW NFT NOW !</StyledBannerButton>
     </StyledBanner>
   )
 }
