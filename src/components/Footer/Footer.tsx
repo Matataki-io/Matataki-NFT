@@ -23,21 +23,10 @@ const Footer: React.FC = () => (
       <StyledFooterUlContent>
         <StyledFooterUl>
           <li>
-            <a href="https://github.com/Matataki-io/Matataki-NFT" rel="noopener noreferrer" target="_blank">About</a>
+            <a href="https://github.com/Matataki-io/Matataki-NFT" rel="noopener noreferrer" target="_blank">Github</a>
           </li>
           <li>
-            <a href="https://github.com/Matataki-io/Matataki-NFT" rel="noopener noreferrer" target="_blank">Suggestions</a>
-          </li>
-          <li>
-            <a href="https://github.com/Matataki-io/Matataki-NFT" rel="noopener noreferrer" target="_blank">FAQ</a>
-          </li>
-        </StyledFooterUl>
-        <StyledFooterUl>
-        <li>
-            <a href="https://github.com/Matataki-io/Matataki-NFT" rel="noopener noreferrer" target="_blank">Privacy Policy</a>
-          </li>
-          <li>
-            <a href="https://github.com/Matataki-io/Matataki-NFT" rel="noopener noreferrer" target="_blank">Terms of Service</a>
+            <a href="https://rinkeby.etherscan.io/address/0x97e895Faa51feaE17BBbBAb7eBA4248ACbf6F0Ae" rel="noopener noreferrer" target="_blank">Contract</a>
           </li>
         </StyledFooterUl>
       </StyledFooterUlContent>
@@ -51,11 +40,11 @@ const StyledFooter = styled.footer`
 const StyledFooterContainer = styled.footer`
   max-width: 1400px;
   margin: 0 auto;
-  padding: 40px 15px;
+  padding: 20px 15px;
   display: flex;
-    align-items: center;
-    justify-content: space-between;
-    box-sizing: border-box;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
 `
 // const StyledFooterInner = styled.div`
 //   align-items: center;
@@ -70,7 +59,7 @@ const StyledFooterLogo = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 70px;
+  margin-bottom: 10px;
   .logo {
     height: 30px;
   }
@@ -92,7 +81,7 @@ const StyledFooterUlContent = styled.div`
 `
 const StyledFooterUl = styled.ul`
   padding: 0;
-  margin: 0 40px;
+  margin: 0 0 0 40px;
   list-style: none;
   li {
     font-size: 16px;

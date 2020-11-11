@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState, useContext } from 'react'
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
 import { ThemeProvider } from 'styled-components'
 import { UseWalletProvider } from 'use-wallet'
 import DisclaimerModal from './components/DisclaimerModal'
@@ -18,19 +18,19 @@ import Header from "./components/Header"
 import Assets from './views/Assets/index'
 
 import { Network } from "./config/index"
-import CreateItemProvider from './contexts/CreateItemProvider';
-import CreateItemModal from './components/CreateItemModal';
+import CreateItemProvider from './contexts/CreateItemProvider'
+import CreateItemModal from './components/CreateItemModal'
 
 const App: React.FC = () => {
-  const [mobileMenu, setMobileMenu] = useState(false)
+  // const [mobileMenu, setMobileMenu] = useState(false)
 
-  const handleDismissMobileMenu = useCallback(() => {
-    setMobileMenu(false)
-  }, [setMobileMenu])
+  // const handleDismissMobileMenu = useCallback(() => {
+  //   setMobileMenu(false)
+  // }, [setMobileMenu])
 
-  const handlePresentMobileMenu = useCallback(() => {
-    setMobileMenu(true)
-  }, [setMobileMenu])
+  // const handlePresentMobileMenu = useCallback(() => {
+  //   setMobileMenu(true)
+  // }, [setMobileMenu])
 
   return (
     <Providers>
@@ -42,15 +42,18 @@ const App: React.FC = () => {
           <Route path="/" exact>
             <Home />
           </Route>
-          <Route path="/farms">
+          {/* <Route path="/farms">
             <Farms />
+          </Route> */}
+          <Route path="/assets/:address" exact>
+            <Redirect to="/" />
           </Route>
-          <Route path="/assets/:id">
+          <Route path="/assets/:address/:id">
             <Assets />
           </Route>
-          <Route path="/staking">
+          {/* <Route path="/staking">
             <Stake />
-          </Route>
+          </Route> */}
         </Switch>
       </Router>
       <Disclaimer />

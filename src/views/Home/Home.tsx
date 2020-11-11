@@ -103,8 +103,8 @@ const Home: React.FC = () => {
         </StyledContentHead>
         <StyledContentList>
           {
-            nftList.list.map(i => (
-              <StyledListLink to={`/assets/${i.tokenId}`}>
+            nftList.list.map((i, idx) => (
+              <StyledListLink to={`/assets/${MatatakiNFT}/${i.tokenId}`} key={ idx }>
                 <StyledListCover>
                   <img src={ `${OSSIMG}/${i.logo}`} alt="cover" aria-label="cover" />
                 </StyledListCover>
