@@ -10,6 +10,8 @@ import { isEmpty } from 'lodash';
 import { LeftOutlined, ShareAltOutlined, LinkOutlined } from '@ant-design/icons';
 import {CopyToClipboard} from 'react-copy-to-clipboard';
 import { message } from 'antd';
+import { DescriptionIcon, HistoryIcon, PriceIcon } from '../../components/IconAnt'
+
 
 interface nftResultInterface extends nftInterface {}
 
@@ -47,7 +49,7 @@ const Assets: React.FC = () => {
               </StyledContentCover>
               <StyledContentCard>
                 <StyledContentCardTitle>
-                  <span>icon Description</span>
+                  <span><DescriptionIcon />&nbsp;Description</span>
                 </StyledContentCardTitle>
                 <StyledContentCardContent>
                   <StyledPriceDescription>{nftData.description}</StyledPriceDescription>
@@ -79,7 +81,7 @@ const Assets: React.FC = () => {
 
               <StyledContentCard>
                 <StyledContentCardTitle>
-                  <span>icon Current Price</span>
+                  <span><PriceIcon />&nbsp;Current Price</span>
                 </StyledContentCardTitle>
                 <StyledContentCardContent>
                   ...
@@ -89,7 +91,7 @@ const Assets: React.FC = () => {
 
               <StyledContentCard>
                 <StyledContentCardTitle>
-                  <span>icon Price History</span>
+                  <span><HistoryIcon />&nbsp;Price History</span>
                 </StyledContentCardTitle>
                 <StyledContentCardContent>
                   ...
@@ -234,6 +236,8 @@ const StyledContentCardTitle = styled.div`
     font-weight: bold;
     color: #333333;
     line-height: 22px;
+    display: flex;
+    align-items: center;
   }
 `
 const StyledContentCardContent = styled.div`
