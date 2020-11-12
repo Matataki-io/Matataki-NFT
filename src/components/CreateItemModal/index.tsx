@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react'
 import { Form, Input, Modal, Button, message } from 'antd';
 import { useWallet } from 'use-wallet'
 import { provider } from 'web3-core'
+import styled from 'styled-components'
 
 import { Context } from '../../contexts/CreateItemProvider'
 import UploadImage from '../UploadImage/index';
@@ -89,15 +90,14 @@ const CreateItemModal: React.FC = () => {
     >
       <Form {...layout} form={form} name="control-hooks" onFinish={onFinish}
       layout="vertical">
-        <Form.Item name={['nft', 'logo']} label="LOGO" rules={[{ required: true, message: 'Please input logo url!' }]}>
+        <Form.Item name={['nft', 'logo']} label="LOGO" rules={[{ required: true, message: 'Please input logo url!' }]} extra="File types supported: JPG, JPEG, JFIF, BMP, WEBP, PNG, GIF. Max size: 2 MB">
           <UploadImage onUploadImage={handleUploadImage}></UploadImage>
           {/* <Input placeholder="Please input logo url" /> */}
         </Form.Item>
         <Form.Item name={['nft', 'name']} label="NAME" rules={[{ required: true, message: 'Please input name!' }]}>
           <Input placeholder="Please input name" />
         </Form.Item>
-        <Form.Item name={['nft', 'externalLink']} label="EXTERNAL LINK" rules={[{ required: true, message: 'Please input external link' }]}>
-          {/* <StyledCreateText>Matataki-NFT will include a link to this URL on this item's detail page, so that users can click to learn more about it. You are welcome to link to your own webpage with more details.</StyledCreateText> */}
+        <Form.Item name={['nft', 'externalLink']} label="EXTERNAL LINK" rules={[{ required: true, type: 'url', message: 'Please input external link' }]} extra="Matataki-NFT will include a link to this URL on this item's detail page, so that users can click to learn more about it. You are welcome to link to your own webpage with more details.">
           <Input placeholder="Please input external link" />
         </Form.Item>
         <Form.Item name={['nft', 'description']} label="DESCRIPTION" rules={[{ required: true, message: 'Please input description!' }]}>
