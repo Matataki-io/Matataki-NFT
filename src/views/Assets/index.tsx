@@ -185,6 +185,7 @@ const StyledContentCover = styled.div`
 `
 // common card
 const StyledContentCard = styled.div`
+  width: 100%;
   background: #FFFFFF;
   border-radius: 16px;
   border: 1px solid #DBDBDB;
