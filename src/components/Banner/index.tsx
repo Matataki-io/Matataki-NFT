@@ -34,7 +34,7 @@ const StyledBanner = styled.section`
   background: #f1f1f1;
   background-image: url(${banner});
   background-size: cover;
-  background-position: left;
+  background-position: center;
   background-repeat: no-repeat;
   display: flex;
   flex-direction: column;

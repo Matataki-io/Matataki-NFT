@@ -44,7 +44,7 @@ function blobToFile(blob: any, fileName: string) {
   return blob;
 }
 
-async function transformFile(file: any): Promise<string | Blob | File> {
+async function transformFile(file: File): Promise<string | Blob | File> {
   // https://blog.csdn.net/qq_21937107/article/details/91424611
   // base64 to blob then file
   console.log('file', file)
