@@ -1,4 +1,4 @@
-import ethers, { BigNumber, Contract, utils } from "ethers"
+import { getDefaultProvider, BigNumber, Contract, utils } from "ethers"
 import MulticallAbi from "../constants/abi/Multicall.json";
 import { Network, NetworksName } from "../config/index";
 
@@ -14,7 +14,7 @@ interface MulticallResult {
   returnData: string[];
 }
 
-const provider = ethers.getDefaultProvider(NetworksName[Network])
+const provider = getDefaultProvider(NetworksName[Network])
 export const Multicall = new Contract(
   process.env.REACT_APP_MULTICALL_ADDRESS,
   IMulticall,

@@ -12,7 +12,7 @@ import Banner from '../../components/Banner'
 import { Pagination, Checkbox } from 'antd'
 import { Link } from 'react-router-dom'
 import { getNft, OSSIMG, myNftInterface } from '../../api/client'
-import ethers from 'ethers'
+import { providers, Contract } from 'ethers'
 import { MatatakiNFT } from '../../constants/tokenAddresses'
 import MatatakiNFTABI from '../../constants/abi/MatatakiNFT.json'
 import { Network, NetworksName } from '../../config/index'
@@ -23,7 +23,7 @@ const Home: React.FC = () => {
   const { account }: { account: string } = useWallet()
   const [current, setCurrent] = useState(1)
   const [page, setPage] = useState(1)
-  const [size, ] = useState(20)
+  const [size,] = useState(20)
   const [isAccount, setIsAccount] = useState(false)
   const [nftList, setNftList] = useState({
     count: 0,
@@ -57,11 +57,11 @@ const Home: React.FC = () => {
 
     try {
       const init = async () => {
-          // const provider = ethers.getDefaultProvider(NetworksName[Network]);
+        // const provider = ethers.getDefaultProvider(NetworksName[Network]);
         const web3: any = (window as any).web3
-        const provider = new ethers.providers.Web3Provider(web3.currentProvider);
+        const provider = new providers.Web3Provider(web3.currentProvider);
         // const provider = new ethers.providers.JsonRpcProvider('https://eth-rinkeby.alchemyapi.io/v2/SLFdIfubZlDvaKjRv-rP3Ie0msesJydB');
-        const contract = new ethers.Contract(MatatakiNFT, MatatakiNFTABI, provider);
+        const contract = new Contract(MatatakiNFT, MatatakiNFTABI, provider);
 
         const contractName = await contract.name();
         console.log('current name', contractName);
@@ -104,12 +104,12 @@ const Home: React.FC = () => {
         <StyledContentList>
           {
             nftList.list.map((i, idx) => (
-              <StyledListLink to={`/assets/${MatatakiNFT}/${i.tokenId}`} key={ idx }>
+              <StyledListLink to={`/assets/${MatatakiNFT}/${i.tokenId}`} key={idx}>
                 <StyledListCover>
-                  <img src={ `${OSSIMG}/${i.logo}`} alt="cover" aria-label="cover" />
+                  <img src={`${OSSIMG}/${i.logo}`} alt="cover" aria-label="cover" />
                 </StyledListCover>
-                <StyledListTitle>{ i.name }</StyledListTitle>
-                <StyledListTitle>{ i.description }</StyledListTitle>
+                <StyledListTitle>{i.name}</StyledListTitle>
+                <StyledListTitle>{i.description}</StyledListTitle>
                 {/* <StyledListInfo>
                   <span>3days</span>
                   <span>1.3434DPC</span>
@@ -119,7 +119,7 @@ const Home: React.FC = () => {
           }
         </StyledContentList>
         <StyledContentPagination>
-          <Pagination current={current} total={nftList.count} defaultPageSize={size} onChange={ paginationChange } />
+          <Pagination current={current} total={nftList.count} defaultPageSize={size} onChange={paginationChange} />
         </StyledContentPagination>
       </StyledContent>
     </Page>

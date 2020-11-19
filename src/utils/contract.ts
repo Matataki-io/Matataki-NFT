@@ -1,4 +1,4 @@
-import ethers from "ethers";
+import { utils } from "ethers";
 import ERC20ABI from '../sushi/lib/abi/erc20.json'
 import StakingRewards from '../constants/abi/StakingRewards.json'
 import StakingMiningPoolFactory from '../constants/abi/StakingMiningPoolFactory.json'
@@ -7,9 +7,9 @@ import { MaxUint256 } from '@ethersproject/constants'
 import BigNumber from 'bignumber.js'
 import { aggregateCalls } from "../utils/multicall";
 
-const IERC20 = new ethers.utils.Interface(ERC20ABI)
-const IStakingRewards = new ethers.utils.Interface(StakingRewards)
-const IStakingMiningPoolFactory = new ethers.utils.Interface(StakingMiningPoolFactory)
+const IERC20 = new utils.Interface(ERC20ABI)
+const IStakingRewards = new utils.Interface(StakingRewards)
+const IStakingMiningPoolFactory = new utils.Interface(StakingMiningPoolFactory)
 
 interface FactsOfERC20 {
     decimals: number

@@ -2,18 +2,18 @@ import React, { useEffect, useState, useCallback } from 'react'
 import styled from 'styled-components'
 import Page from '../../components/Page'
 import Banner from '../../components/Banner'
-import { Tag } from 'antd'
+import { Tag, Table } from 'antd'
 import { useHistory } from 'react-router-dom'
 import { getNftId, nftInterface, OSSIMG } from '../../api/client'
 import { useParams } from "react-router-dom";
 import { isEmpty } from 'lodash';
 import { LeftOutlined, ShareAltOutlined, LinkOutlined } from '@ant-design/icons';
-import {CopyToClipboard} from 'react-copy-to-clipboard';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { message } from 'antd';
 import { DescriptionIcon, HistoryIcon, PriceIcon } from '../../components/IconAnt'
+import ReactEcharts from 'echarts-for-react';
 
-
-interface nftResultInterface extends nftInterface {}
+interface nftResultInterface extends nftInterface { }
 
 const Assets: React.FC = () => {
   let history = useHistory()
@@ -32,6 +32,76 @@ const Assets: React.FC = () => {
     getData()
   }, [id])
 
+  const priceChartsOptions = {
+    xAxis: {
+      type: 'category',
+      data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+    },
+    color: '#193CB1',
+    yAxis: {
+      type: 'value'
+    },
+    series: [{
+      data: [820, 932, 901, 934, 1290, 1330, 1320],
+      type: 'line'
+    }]
+  }
+
+  const dataSource = [
+    {
+      key: '1',
+      form: '0x47732D065d1493c35b188f3FeBF62A4A89fF2bE7',
+      to: '0x47732D065d1493c35b188f3FeBF62A4A89fF2bE7',
+      quantity: 1,
+      price: '6.5673 DPC',
+      date: '3 hours ago',
+    },
+    {
+      key: '2',
+      form: '0x47732D065d1493c35b188f3FeBF62A4A89fF2bE7',
+      to: '0x47732D065d1493c35b188f3FeBF62A4A89fF2bE7',
+      quantity: 1,
+      price: '6.5673 DPC',
+      date: '3 hours ago',
+    },
+    {
+      key: '3',
+      form: '0x47732D065d1493c35b188f3FeBF62A4A89fF2bE7',
+      to: '0x47732D065d1493c35b188f3FeBF62A4A89fF2bE7',
+      quantity: 1,
+      price: '6.5673 DPC',
+      date: '3 hours ago',
+    },
+  ];
+
+  const columns = [
+    {
+      title: 'Form',
+      dataIndex: 'form',
+      key: 'form',
+    },
+    {
+      title: 'to',
+      dataIndex: 'to',
+      key: 'to',
+    },
+    {
+      title: 'Quantity',
+      dataIndex: 'quantity',
+      key: 'quantity',
+    },
+    {
+      title: 'Price',
+      dataIndex: 'price',
+      key: 'price',
+    },
+    {
+      title: 'Date',
+      dataIndex: 'date',
+      key: 'date',
+    },
+  ];
+
   return (
     <Page>
       <StyledHead>
@@ -42,64 +112,108 @@ const Assets: React.FC = () => {
       </StyledHead>
       {
         isEmpty(nftData) ? (<StyledLoading>Loading...</StyledLoading>) : (
-          <StyledContent>
-            <StyledContentInfo>
-              <StyledContentCover>
-                <img src={ `${OSSIMG}/${nftData.logo}`} alt="cover" aria-label="cover" />
-              </StyledContentCover>
-              <StyledContentCard className="assets-description">
-                <StyledContentCardTitle>
-                  <span><DescriptionIcon />&nbsp;Description</span>
-                </StyledContentCardTitle>
-                <StyledContentCardContent>
-                  <StyledPriceDescription>{nftData.description}</StyledPriceDescription>
-                  {/* <a href="#">Unfold</a> */}
-                </StyledContentCardContent>
-              </StyledContentCard>
-            </StyledContentInfo>
+          <React.Fragment>
+            <StyledContent>
+              <StyledContentInfo>
+                <StyledContentCover>
+                  <img src={`${OSSIMG}/${nftData.logo}`} alt="cover" aria-label="cover" />
+                </StyledContentCover>
+                <StyledContentCard className="assets-description">
+                  <StyledContentCardTitle>
+                    <span><DescriptionIcon />&nbsp;Description</span>
+                  </StyledContentCardTitle>
+                  <StyledContentCardContent>
+                    <StyledPriceDescription>{nftData.description}</StyledPriceDescription>
+                    {/* <a href="#">Unfold</a> */}
+                  </StyledContentCardContent>
+                </StyledContentCard>
+              </StyledContentInfo>
 
-            <StyledContentPrice>
-              <StyledPriceHead>
-                <Tag color="cyan">New</Tag>
-                {/* <span>lock icon 3d 00:00:00</span> */}
-                <StyledPriceHeadShare>
-                  <StyledPriceHeadBlock>
-                    <a href={nftData.externalLink} target="_blank" rel="noopener noreferrer"><LinkOutlined /></a>
-                  </StyledPriceHeadBlock>
-                  <StyledPriceHeadBlock>
-                  <CopyToClipboard text={window.location.href} onCopy={() => message.success('Copy Success')}>
-                    <ShareAltOutlined />
-                  </CopyToClipboard>
-                  </StyledPriceHeadBlock>
-                </StyledPriceHeadShare>
-              </StyledPriceHead>
-              <StyledPriceTitle>{nftData.name}</StyledPriceTitle>
-              <StyledPriceUser>
-                <StyledPriceUserBy>Created by </StyledPriceUserBy>
-                <StyledPriceUserByAuthor href={`${process.env.REACT_APP_ETHERSCAN_URL}/address/${nftData.account}`} target="_blank" rel="noopener noreferrer">{nftData.account}</StyledPriceUserByAuthor>
-              </StyledPriceUser>
+              <StyledContentPrice>
+                <StyledPriceHead>
+                  <Tag color="cyan">New</Tag>
+                  {/* <span>lock icon 3d 00:00:00</span> */}
+                  <StyledPriceHeadShare>
+                    <StyledPriceHeadBlock>
+                      <a href={nftData.externalLink} target="_blank" rel="noopener noreferrer"><LinkOutlined /></a>
+                    </StyledPriceHeadBlock>
+                    <StyledPriceHeadBlock>
+                      <CopyToClipboard text={window.location.href} onCopy={() => message.success('Copy Success')}>
+                        <ShareAltOutlined />
+                      </CopyToClipboard>
+                    </StyledPriceHeadBlock>
+                  </StyledPriceHeadShare>
+                </StyledPriceHead>
+                <StyledPriceTitle>{nftData.name}</StyledPriceTitle>
+                <StyledPriceUser>
+                  <StyledPriceUserBy>Created by </StyledPriceUserBy>
+                  <StyledPriceUserByAuthor href={`${process.env.REACT_APP_ETHERSCAN_URL}/address/${nftData.account}`} target="_blank" rel="noopener noreferrer">{nftData.account}</StyledPriceUserByAuthor>
+                </StyledPriceUser>
 
+                <StyledContentCard>
+                  <StyledContentCardTitle>
+                    <span><PriceIcon />&nbsp;Current Price</span>
+                  </StyledContentCardTitle>
+                  <StyledContentCardContent>
+                    <StyledPrice>
+                      <div className="price-auction">
+                        <div style={{ display: 'flex' }}>
+                          <StyledPriceItem style={{ flex: 1 }}>
+                            <p className="price-title">New Offer</p>
+                            <div>
+                              <span className="price-number">7.567<sub>KJM<span>$123</span></sub></span>
+                            </div>
+                          </StyledPriceItem>
+                          <StyledPriceItem style={{ flex: 1 }}>
+                            <p className="price-title">New Offer</p>
+                            <div>
+                              <span className="price-number">7.567<sub>KJM<span>$123</span></sub></span>
+                            </div>
+                          </StyledPriceItem>
+                        </div>
+                        <div style={{ display: 'flex', alignItems: 'center', marginTop: 10 }}>
+                          <StyledPriceInput type="text" placeholder="Input the price you want to offer" /><StyledPriceButton style={{ padding: '10px 16px', borderRadius: '0 8px 8px 0' }}>participate in the auction</StyledPriceButton>
+                        </div>
+                      </div>
+                      <div className="price-buy">
+                        <StyledPriceItem>
+                          <p className="price-title">New Offer</p>
+                          <div>
+                            <span className="price-number">7.567<sub>KJM<span>$123</span></sub></span>
+                          </div>
+                        </StyledPriceItem>
+                        <div style={{ marginTop: 10 }}>
+                          <StyledPriceButton style={{ width: '100%' }}>BUY</StyledPriceButton>
+                        </div>
+                      </div>
+                    </StyledPrice>
+                  </StyledContentCardContent>
+                </StyledContentCard>
+
+
+                <StyledContentCard>
+                  <StyledContentCardTitle>
+                    <span><HistoryIcon />&nbsp;Price History</span>
+                  </StyledContentCardTitle>
+                  <StyledContentCardContent>
+                    <ReactEcharts option={priceChartsOptions} />
+                  </StyledContentCardContent>
+                </StyledContentCard>
+
+              </StyledContentPrice>
+            </StyledContent>
+
+            <StyledContentHistory>
               <StyledContentCard>
                 <StyledContentCardTitle>
-                  <span><PriceIcon />&nbsp;Current Price</span>
+                  <span><HistoryIcon />&nbsp;Trading History </span>
                 </StyledContentCardTitle>
                 <StyledContentCardContent>
-                  ...
+                  <Table dataSource={dataSource} columns={columns} />
                 </StyledContentCardContent>
               </StyledContentCard>
-
-
-              <StyledContentCard>
-                <StyledContentCardTitle>
-                  <span><HistoryIcon />&nbsp;Price History</span>
-                </StyledContentCardTitle>
-                <StyledContentCardContent>
-                  ...
-                </StyledContentCardContent>
-              </StyledContentCard>
-
-            </StyledContentPrice>
-          </StyledContent>
+            </StyledContentHistory>
+          </React.Fragment>
         )
       }
 
@@ -125,7 +239,7 @@ const StyledHeadBack = styled.span`
 const StyledContent = styled.div`
   max-width: 1400px;
   padding: 0 15px;
-  margin: 0 auto 40px;
+  margin: 0 auto 20px;
   box-sizing: border-box;
   display: flex;
   flex-wrap: wrap;
@@ -263,6 +377,84 @@ const StyledLoading = styled.div`
   box-sizing: border-box;
   max-width: 100px;
   text-align: center;
+`
+const StyledPrice = styled.div`
+  display: flex;
+  .price-auction {
+    flex: 1;
+    border-right: 1px solid #DBDBDB;
+    padding-right: 10px;
+    margin-right: 10px;
+  }
+  .price-buy {
+
+  }
+`
+const StyledPriceItem = styled.div`
+  display: inline-block;
+  .price-title {
+    font-size: 14px;
+    font-weight: 400;
+    color: #B2B2B2;
+    line-height: 20px;
+    padding: 0;
+    margin: 0;
+  }
+  .price-number {
+    font-size: 36px;
+    font-weight: 600;
+    color: #333333;
+    line-height: 50px;
+    sub {
+      font-size: 14px;
+      color: #193CB1;
+      bottom: 0;
+      span {
+        font-size: 14px;
+        font-weight: 400;
+        color: #B2B2B2;
+        line-height: 20px;
+        margin-left: 6px;
+      }
+    }
+  }
+`
+const StyledPriceInput = styled.input`
+  flex: 1;
+  background: #F1F1F1;
+  border-radius: 8px 0px 0px 8px;
+  border: 1px solid #DBDBDB;
+  height: 40px;
+  font-size: 14px;
+  font-weight: 400;
+  color: #B2B2B2;
+  line-height: 20px;
+  padding: 0 10px;
+  outline: none;
+`
+const StyledPriceButton = styled.button`
+  background: #193CB1;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #FFFFFF;
+  line-height: 20px;
+  border: none;
+  outline: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  &:hover {
+    background: #163088;
+  }
+`
+
+const StyledContentHistory = styled.div`
+  max-width: 1400px;
+  padding: 0 15px;
+  margin: 0 auto 40px;
+  box-sizing: border-box;
+  display: flex;
+  flex-wrap: wrap;
 `
 
 
